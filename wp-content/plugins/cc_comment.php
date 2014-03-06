@@ -12,13 +12,32 @@ Author URI: http://isobotie.gopagoda.com/
 
 function cccomm_option_page()
 {
+    // first...process form data?
+    if ( $_POST['cccomm_hidden'] == 'Y' )
+    {
+        update_option( 'cccomm_cc_email', $_POST['cc_email']);
+        ?>
+        <div id="message" class="updated">Email was saved for CC Comments</div>
+    <?php
+    }
+
     ?>
     <div class="wrap">
         <h2>CC Comments Option Page</h2>
         <p>Welcome to the CC Comments Plugin. Here you can edit the email(s) you wish to have your comments CC'd to.</p>
 
+        <form action="" method="post" id="cc-comments-email-options-form">
+            <h3><label for="cc_email">Email to send CC to: </label> <input
+                    type="text" id="cc_email" name="cc_email"
+                    value="<?php echo esc_attr( get_option('cccomm_cc_email') ); ?>" /></h3>
+            <p><input type="submit" name="submit" value="Update Email" /></p>
+            <input type="hidden" name="cccomm_hidden" value="Y" />
+        </form>
     </div>
 <?php
+
+
+
 }
 
 
