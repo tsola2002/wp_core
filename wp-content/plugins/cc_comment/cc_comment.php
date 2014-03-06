@@ -44,7 +44,7 @@ function cccomm_option_page()
 
 function cccomm_plugin_menu()
 {
-    add_options_page('CC Comments Settings','CC Comments', 'manage_options', 'cc-comments-plugin', 'cccomm_option_page');
+    add_dashboard_page('CC Comments Settings','CC Comments', 'manage_options', 'cc-comments-plugin');
 }
 
 add_action('admin_menu', 'cccomm_plugin_menu');
