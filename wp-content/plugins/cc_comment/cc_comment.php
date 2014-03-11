@@ -17,34 +17,28 @@ function cccomm_init()
 
 add_action('admin_init','cccomm_init');
 
-function cccomm_option_page()
+//function to add a setting field item to options.php page
+function cccomm_setting_field()
 {
-
     ?>
-    <div class="wrap">
-        <h2>CC Comments Option Page</h2>
-        <p>Welcome to the CC Comments Plugin. Here you can edit the email(s) you wish to have your comments CC'd to.</p>
-
-        <form action="options.php" method="post" id="cc-comments-email-options-form">
-            <!--  this will output nonces for the entire settings group  -->
-            <?php settings_fields('cccomm_options'); ?>
-            <h3><label for="cccomm_cc_email">Email to send CC to: </label> <input
-                    type="text" id="cccomm_cc_email" name="cccomm_cc_email"
-                    value="<?php echo esc_attr( get_option('cccomm_cc_email') ); ?>" /></h3>
-            <p><input type="submit" name="submit" value="Update Email" /></p>
-            <input type="hidden" name="cccomm_hidden" value="Y" />
-        </form>
-    </div>
+    <input type="text" name="cccomm_cc_email" id="cccomm_cc_email"
+           value="<?php echo get_option('cccomm_cc_email'); ?>" />
 <?php
-
-
-
 }
+
+function cccomm_setting_section()
+{
+    ?>
+    <p>Settings for the CC Comments plugin:</p>
+<?php
+}
+
 
 
 function cccomm_plugin_menu()
 {
-    add_menu_page('CC Comments Settings','CC Comments', 'manage_options', 'cc-comments-plugin', 'cccomm_option_page', '/wp_core/wp-content/plugins/cc_comment/cc_icon.png', 20);
+    add_settings_section('cccomm','CC Comments','cccomm_setting_section','general');
+    add_settings_field('cccomm_cc_email', 'CC Comments Email','cccomm_setting_field','general','cccomm');
 }
 
 add_action('admin_menu', 'cccomm_plugin_menu');
