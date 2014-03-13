@@ -41,8 +41,10 @@ class Tpp_posts_widget extends WP_Widget {
      */
     public function widget( $args, $instance ) {
 
-        $tpp_posts_query = new WP_Query();
-        $tpp_posts_query->get_posts();
+        $tpp_posts_query = new WP_Query(array('posts_per_page' => 2,
+                                              'orderby' => 'comment_count',
+                                              'order' => 'DESC',
+                                              'post__in' => get_option('sticky_posts'))  );
 
         ?>
         <h3>Posts on this page:</h3>
